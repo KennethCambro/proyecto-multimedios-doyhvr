@@ -32,8 +32,7 @@ class UsersController extends AppController
         //this way, we won't have to do if(!empty($this->request->data))
         if ($this->request->is('post')){
             $user = $this->Users->patchEntity($user,$this->request->getData());
-            echo "<script type='text/javascript'>alert('{$user->id}');</script>";
-
+            
             //save new user
             if ($this->Users->save($user)){
                 
@@ -61,37 +60,40 @@ class UsersController extends AppController
     public function edit() {
         //get the id of the user to be edited
         $id = $this->request->params['pass'][0];
-         
         //set the user id
         $this->Users->id = $id;
         //check if a user with this id really exists
-        if( $this->Users->exists($id) ){
-         
-            if( $this->request->is( 'post' ) || $this->request->is( 'put' ) ){
+        if( $this->Users->exists($id)){
+            if( $this->request->is(array('post', 'put')) ){
+                $actualUser= $this->Users->get($id);
+                $modifiedUser = $this->Users->newEntity();
+                $modifiedUser = $this->Users->patchEntity($modifiedUser,$this->request->getData());
+                $actualUser = $modifiedUser;
+                $actualUser->id=$id;
+
                 //save user
-                if( $this->Users->save( $this->request->data ) ){
-                 
+                if( $this->Users->save($actualUser)){
                     //set to user's screen
-                    $this->Session->setFlash('User was edited.');
+                    $this->Flash->success('User was editted.');
                      
                     //redirect to user's list
                     $this->redirect(array('action' => 'index'));
                      
                 }else{
-                    $this->Session->setFlash('Unable to edit user. Please, try again.');
+                    $this->Flash->error('Unable to edit user. Please, try again.');
                 }
                  
             }else{
-             
+
                 //we will read the user data
                 //so it will fill up our html form automatically
                 $user = $this->Users->get($id);
                 $this->set('user',$user);
-            }
-             
-        }else{
+
+            
+            }}else{
             //if not found, we will tell the user that user does not exist
-            $this->Session->setFlash('The user you are trying to edit does not exist.');
+            $this->Flash->error('The user you are trying to edit does not exist.');
             $this->redirect(array('action' => 'index'));
                  
             //or, since it we are using php5, we can throw an exception
@@ -111,36 +113,26 @@ class UsersController extends AppController
      */
     public function delete() {
         $id = $this->request->params['pass'][0];
-         
-        //the request must be a post request 
-        //that's why we use postLink method on our view for deleting user
-        if( $this->request->is('get') ){
-         
-            $this->Session->setFlash('Delete method is not allowed.');
-            $this->redirect(array('action' => 'index'));
-             
-            //since we are using php5, we can also throw an exception like:
-            //throw new MethodNotAllowedException();
-        }else{
-         
-            if( !$id ) {
-                $this->Session->setFlash('Invalid id for user');
-                $this->redirect(array('action'=>'index'));
-                 
-            }else{
-                //delete user
-                if( $this->User->delete( $id ) ){
-                    //set to screen
-                    $this->Session->setFlash('User was deleted.');
-                    //redirect to users's list
-                    $this->redirect(array('action'=>'index'));
-                     
-                }else{  
-                    //if unable to delete
-                    $this->Session->setFlash('Unable to delete user.');
-                    $this->redirect(array('action' => 'index'));
+        $deleteUser= $this->Users->get($id);
+                if (!$deleteUser) {
+                throw new NotFoundException(__('Invalid post'));
+
                 }
+
+                if($this->request->is('get')){
+
+                    if ($this->Users->delete($deleteUser)) {
+
+                        $this->Flash->success(__('The post has been deleted.'));
+
+                    } else {
+
+                        $this->Flash->error(__('The post could not be deleted. Please, try again.'));
+
+                    }
+                }
+
+                return $this->redirect(array('action' => 'index'));
+
             }
-        }
-    }
 }

@@ -41,19 +41,13 @@
             echo "<td class='listing-inquiry-status'> <h6 class='dashboard-table-text'>{$user->email}</h6></td>";
             echo "<td class='listing-inquiry-status'>
                     <h6 class='dashboard-table-text'>
-                   {$this->Html->link( 'Edit', array('controller'=>'Users','action' => 'edit', $user->id),array('class'=>'button expanded alert') )}</h6>
+                   {$this->Html->link( 'Edit', array('controller'=>'Users','action' => 'edit', $user->id),array('class'=>'button expanded sucesss') )}</h6>
                 </td>";
             echo " <td class='listing-inquiry-status'>
                     <h6 class='dashboard-table-text'>
-                    <input class='button expanded alert' type='submit' value='Eliminar'></h6>   
+                    {$this->Html->link( 'Delete', array('controller'=>'Users','action' => 'delete', $user->id),array('class'=>'button expanded alert') )}</h6>   
                  </td>";
-                 
-                //in cakephp 2.0, we won't use get request for deleting records
-                //we use post request (for security purposes)
-                echo $this->Form->postLink( 'Delete', array(
-                        'action' => 'delete', 
-                        $user->id), array(
-                            'confirm'=>'Are you sure you want to delete that user?' ) );
+
             echo "</td>";
         echo "</tr>";
     }else:
