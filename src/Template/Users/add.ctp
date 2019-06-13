@@ -10,7 +10,7 @@
 <?php  echo $this->html->link('Lista Usuarios',array('controller'=>'Users','action'=>'index'));  ?>
 </div>
 <body>
-<?php 
+        <?php 
         echo $this->Form->create('User' ,array('class'=>'callout text-center'));    
         echo $this->Form->input('nombre', array('class'=>'input', 'ng-model'=>'nombre', 'id'=>'nombre', 'name'=>'nombre input', 'placeholder'=>'Nombre completo') );
         echo $this->Form->input('cedula', array('class'=>'input', 'ng-model'=>'cedula', 'id'=>'cedula', 'name'=>'cedula input', 'placeholder'=>'Cedula'));
@@ -24,8 +24,6 @@
         echo $this->Form->end();
 
         ?>
-        </form>
-        </div>
        
 
         <form class="callout text-left">

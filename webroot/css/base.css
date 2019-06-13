@@ -1,14 +1,17 @@
 .content{
-  background-color: navajowhite;
+  background-color: steelblue;
 }
 
 * .h1{
-   background-color: navajowhite;
+   background-color: steelblue;
    width: 500px;
    color: gray;
    margin: 0 auto;
  }
 
+ .h1_add{
+   margin-left: 506px;
+ }
 
  .floated-label-wrapper
  {
@@ -56,6 +59,7 @@
   
   .dashboard-table tbody tr {
     transition: all 0.5s ease;
+    margin: 0 auto;
   }
   
   .dashboard-table tbody tr:hover {
@@ -64,7 +68,7 @@
   }
   
   .dashboard-table tbody tr:focus {
-    background: navajowhite;
+    background: steelblue;
   }
   
   .dashboard-table tr:last-child td {
@@ -96,9 +100,20 @@
   }
   
   a {
-      margin: 50px;
+    margin: 50px;
+    color:white !important;  
   }
+p{
+  margin-left: 10px;
+  margin-top:10px;
+}
 
+.linkIndex{
+  margin:0;
+}
+.linkHome{
+  margin-left: 390px;
+}
   .callout.secondary {
     width: auto;
   }
@@ -115,48 +130,16 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
-  
-  .floated-label-wrapper label 
-  {
-    background: #fefefe;
-    color: #1779ba;
-    font-size: 0.75rem;
-    font-weight: 600;
-    left: 0.75rem;
-    opacity: 0;
-    padding: 0 0.25rem;
-    position: absolute;
-    top: 2rem;
-    transition: all 0.15s ease-in;
-    z-index: -1;
-    
-  }
-  
-  .floated-label-wrapper label input[type=text],
-  .floated-label-wrapper label input[type=email] {
-    border-radius: 4px;
-    font-size: 1.75em;
-    padding: 0.5em;
-    width: 400px;
-    
-  }
 
-  [type="text"],[type="email"],[type="password"]{
+  .input.text .input.email input.password{
     width: 90%;
-    border-radius: 10px;
   }
   
-  [type="text"]:focus,[type="email"]:focus,[type="password"]:focus{
-     border-color: navajowhite;
+  .input.text:focus .input.email:focus input.password:focus{
+     border-color: steelblue;
   }
   
-  .floated-label-wrapper label.show {
-    opacity: 1;
-    top: -0.85rem;
-    z-index: 1;
-    transition: all 0.15s ease-in;
-    
-  }
+ 
   
   .callout{
     border-radius: 20px;
